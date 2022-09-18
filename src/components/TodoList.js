@@ -106,8 +106,7 @@ const TodoList = () => {
                     text: 'Email Already Exits',
                 })
             } else {
-
-
+                
                 if (id <= 10) {
 
                     await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
@@ -181,6 +180,7 @@ const TodoList = () => {
                     }
 
                 }
+
             }
         }
     }
