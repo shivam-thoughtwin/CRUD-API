@@ -4,7 +4,7 @@ import EditTask from './modals/EditTask';
 
 const Card = ({ id, name, email, phone, deleteData, updatData }) => {
   const [modal, setModal] = useState(false);
-
+  debugger;
   const openModal = () => {
     debugger
     setModal(true);

@@ -20,6 +20,7 @@ const TodoList = () => {
     }
     console.log(users);
 
+    // Add Data
     const addData = async (name, email, phone) => {
         if (name == '' || email == '' || phone == '') {
             Swal.fire({
@@ -35,56 +36,57 @@ const TodoList = () => {
 
             debugger
 
-            if(isExits){
+            if (isExits) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Email ALready Exits !!',
                 })
-            }else{
-
-            await fetch('https://jsonplaceholder.typicode.com/users', {
-                method: 'POST',
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    phone: phone
-                }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                }
-            })
-                .then((res) => {
-                    setModal(false);
-                    if (res.status !== 201) {
-                        return
-                    } else {
-                        return res.json()
+            } else {
+                setModal(false);
+                await fetch('https://jsonplaceholder.typicode.com/users', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        phone: phone
+                    }),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8",
                     }
                 })
-                .then((data) => {
-                    console.log(data)
-                    debugger
-                    data['id'] = users.length + 1;
-                    
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Your data has been saved',
-                        showConfirmButton: false,
-                        timer: 2500
+                    .then((res) => {
+
+                        if (res.status !== 201) {
+                            return
+                        } else {
+                            return res.json()
+                        }
                     })
+                    .then((data) => {
+                        console.log(data)
+                        debugger
+                        data['id'] = users.length + 1;
 
-                    setUsers((users) => [...users, data]);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your data has been saved',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
 
-                })
-                .catch((err) => console.log(err));
+                        setUsers((users) => [...users, data]);
+
+                    })
+                    .catch((err) => console.log(err));
             }
 
         }
     }
 
-    const updatData = async (id,name, email, phone) => {
+    // Update Data 
+    const updatData = async (id, name, email, phone) => {
         debugger
         if (name == '' || email == '' || phone == '') {
             Swal.fire({
@@ -93,85 +95,101 @@ const TodoList = () => {
                 text: 'Please Fill All Inputs',
             })
         } else {
+            const emailExists = users.findIndex((item, index) => {
+                return index !== (id - 1) ? item.email === email : null;
+            });
+            debugger;
+            if (emailExists && emailExists!==-1) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Email Already Exits',
+                })
+            } else {
 
-            if(id <= 10){
 
-            await fetch(`https://jsonplaceholder.typicode.com/users/${id}`,{
-                method: 'PUT',
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    phone: phone
-                }),
-                headers: {
-                    "Accept": "application/json",
-                    "Content-type": "application/json; charset=UTF-8",
-                }
-            })
-            .then((res) => {
-                
-                console.log(res)
-                debugger
-                    if (res.status !== 201) {
-                        return res.json();
+                if (id <= 10) {
+
+                    await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+                        method: 'PUT',
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            phone: phone
+                        }),
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-type": "application/json; charset=UTF-8",
+                        }
+                    })
+                        .then((res) => {
+                            // setModal(false)
+                            console.log(res)
+                            debugger
+                            if (res.status !== 201) {
+                                return res.json();
+                            } else {
+                                return
+                            }
+                        })
+                        .then((data) => {
+
+                            console.log(data, "data");
+                            const originalUsers = [...users];
+                            const isExits = originalUsers.findIndex(item => item.id === data.id)
+
+                            debugger
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Your data has been Updated',
+                                showConfirmButton: false,
+                                timer: 2500
+                            })
+                            originalUsers[isExits] = data;
+                            debugger
+                            setUsers(originalUsers)
+                            console.log(originalUsers, "updated")
+                            debugger
+
+                        })
+                        .catch((err) => console.log(err));
+
                 } else {
-                        return 
-                    }
-                })
-                .then((data) => {
 
-                    console.log(data,"data");
                     const originalUsers = [...users];
-                    const isExits = originalUsers.findIndex(item => item.id === data.id)
-                    
-                    debugger
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Your data has been Updated',
-                        showConfirmButton: false,
-                        timer: 2500
-                    })
-                    originalUsers[isExits] = data;
-                    debugger
-                    setUsers(originalUsers)
-                    console.log(originalUsers,"updated")
-                    debugger
+                    const isExits = originalUsers.findIndex(item => item.id === id)
 
-                })
-                .catch((err) => console.log(err));  
+                    if (isExits) {
 
-            }else{
+                        let tempObj = {}
+                        tempObj['name'] = name;
+                        tempObj['email'] = email;
+                        tempObj['phone'] = phone
 
-                const originalUsers = [...users];
-                const isExits = originalUsers.findIndex(item => item.id === id)
+                        originalUsers[isExits] = tempObj;
+                        debugger
+                        setUsers(originalUsers)
 
-                if(isExits){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your data has been Updated',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+                    }
 
-                    let tempObj = {}
-                    tempObj['name'] = name;
-                    tempObj['email'] = email;
-                    tempObj['phone'] = phone
-
-                    originalUsers[isExits] = tempObj;
-                    debugger
-                    setUsers(originalUsers)
-
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Your data has been Updated',
-                        showConfirmButton: false,
-                        timer: 2500
-                    })
                 }
-
-            }    
+            }
         }
     }
 
+
+
+    // Delete Data
     const deleteData = async (id) => {
-        await fetch(`https://jsonplaceholder.typicode.com/users/${id}`,{
+        await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
             method: 'DELETE'
         })
             .then((res) => {
@@ -185,8 +203,6 @@ const TodoList = () => {
             })
             .catch((err) => console.log(err));
     }
-
-    
 
 
     const toggle = () => {

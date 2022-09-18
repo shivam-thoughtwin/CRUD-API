@@ -3,10 +3,11 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Swal from "sweetalert2";
 
 const EditTask = ({ modal, toggle, id, name, email, phone, updatData }) => {
+    console.log("===><===",name);
     const [users, setUsers] = useState([]);
     useEffect(() => {
         setUsers({ name, email, phone })
-    }, [])
+    }, [name, email, phone])
     
     const handleChange = (e) => {
         const { name, value } = e.target
