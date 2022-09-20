@@ -44,7 +44,7 @@ const CreateTask = ({ modal, toggle, addData }) => {
                         class="form-control" 
                         name='name' 
                         placeholder="Enter Full Name" 
-                        value={values.name}
+                        // value={values.name}
                         onChange={handleChange}
                         onBlur={handleBlur} 
                         />
@@ -58,7 +58,7 @@ const CreateTask = ({ modal, toggle, addData }) => {
                         class="form-control" 
                         name='email' 
                         placeholder="Enter Email" 
-                        value={values.email}
+                        // value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur} 
                         />
@@ -72,7 +72,7 @@ const CreateTask = ({ modal, toggle, addData }) => {
                         class="form-control" 
                         name='phone' 
                         placeholder="Enter Phone Number" 
-                        value={values.phone}
+                        // value={values.phone}
                         onChange={handleChange}
                         onBlur={handleBlur} 
                         />
