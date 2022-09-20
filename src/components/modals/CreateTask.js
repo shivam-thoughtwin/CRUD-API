@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useFormik } from 'formik';
 import { validation } from '../Schema';
+import '../../App.css';
 
 const CreateTask = ({ modal, toggle, addData }) => {
 
@@ -19,10 +20,11 @@ const CreateTask = ({ modal, toggle, addData }) => {
     const {values, errors, touched , handleBlur, handleChange, handleSubmit}  = useFormik({
         initialValues : initialValues,
         validationSchema: validation,
-        onSubmit : (values) =>{
-            // console.log(values.name)
+        onSubmit : (values, action) =>{
+            console.log(values)
             addData(values.name, values.email, values.phone)
-        }
+            action.resetForm();
+        },
     });
 
     const styles = {
@@ -40,11 +42,12 @@ const CreateTask = ({ modal, toggle, addData }) => {
                     <div class="form-group">
                         <label>Full Name</label>
                         <input 
+                        style={{ border: errors.name && touched.name ? '1px solid red' : '' }}
                         type="text" 
                         class="form-control" 
                         name='name' 
                         placeholder="Enter Full Name" 
-                        // value={values.name}
+                        value={values.name}
                         onChange={handleChange}
                         onBlur={handleBlur} 
                         />
@@ -54,11 +57,12 @@ const CreateTask = ({ modal, toggle, addData }) => {
                     <div class="form-group">
                         <label>Email</label>
                         <input 
+                        style={{ border: errors.email && touched.email ? '1px solid red' : '' }}
                         type="text" 
                         class="form-control" 
                         name='email' 
                         placeholder="Enter Email" 
-                        // value={values.email}
+                        value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur} 
                         />
@@ -68,11 +72,12 @@ const CreateTask = ({ modal, toggle, addData }) => {
                     <div class="form-group">
                         <label>Phone</label>
                         <input 
+                        style={{ border: errors.phone && touched.phone ? '1px solid red' : '' }}
                         type="text" 
                         class="form-control" 
                         name='phone' 
                         placeholder="Enter Phone Number" 
-                        // value={values.phone}
+                        value={values.phone}
                         onChange={handleChange}
                         onBlur={handleBlur} 
                         />

@@ -30,6 +30,7 @@ const EditTask = ({ modal, toggle, id, name, email, phone, updatData }) => {
             
         }
     }
+    
 
     return (
 
