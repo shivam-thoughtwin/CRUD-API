@@ -3,7 +3,10 @@ import CreateTask from './modals/CreateTask';
 import Card from './Card';
 import Swal from "sweetalert2";
 
+
+
 const TodoList = () => {
+
     const [modal, setModal] = useState(false);
 
     const [users, setUsers] = useState([]);
@@ -185,8 +188,6 @@ const TodoList = () => {
         }
     }
 
-
-
     // Delete Data
     const deleteData = async (id) => {
         await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
@@ -204,7 +205,6 @@ const TodoList = () => {
             .catch((err) => console.log(err));
     }
 
-
     const toggle = () => {
         setModal(!modal);
     }
@@ -213,6 +213,7 @@ const TodoList = () => {
 
     return (
         <>
+        
             <div className='header text-center'>
                 <h3>Todo List using API || Assigned by Amit Sir</h3>
                 <button className='btn btn-success mt-2' onClick={() => setModal(true)}>Add Todo</button>
@@ -223,7 +224,6 @@ const TodoList = () => {
                         <Card id={user.id} key={user.id} name={user.name} email={user.email} phone={user.phone} deleteData={deleteData} updatData={updatData} />
                     ))
                 }
-
 
             </div>
             <CreateTask toggle={toggle} modal={modal} addData={addData} />
