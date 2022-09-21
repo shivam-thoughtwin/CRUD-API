@@ -11,6 +11,19 @@ const TodoList = () => {
 
     const [users, setUsers] = useState([]);
 
+    const [getUser, setGetUser] = useState([]);
+    const [isLoggedin, setIsLoggedin] = useState(false);
+
+
+    useEffect(() => {
+        let arr = localStorage.getItem("user");
+        if (arr) {
+            let obj = JSON.parse(arr);
+            setGetUser(obj)
+            setIsLoggedin(true);
+        }
+    }, [getUser, isLoggedin]);
+
     useEffect(() => {
         fetchData()
     }, []);
@@ -102,14 +115,14 @@ const TodoList = () => {
                 return index !== (id - 1) ? item.email === email : null;
             });
             debugger;
-            if (emailExists && emailExists!==-1) {
+            if (emailExists && emailExists !== -1) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Email Already Exits',
                 })
             } else {
-                
+
                 if (id <= 10) {
 
                     await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
@@ -213,19 +226,34 @@ const TodoList = () => {
 
     return (
         <>
-        
-            <div className='header text-center'>
-                <h3>Todo List using API || Assigned by Amit Sir</h3>
-                <button className='btn btn-success mt-2' onClick={() => setModal(true)}>Add Todo</button>
-            </div>
-            <div className='task-container'>
-                {
-                    users.map((user) => (
-                        <Card id={user.id} key={user.id} name={user.name} email={user.email} phone={user.phone} deleteData={deleteData} updatData={updatData} />
-                    ))
-                }
 
-            </div>
+            {
+                (isLoggedin) ?
+                    <>
+                        <div className='header text-center'>
+                            <h3>Todo List using API || Assigned by Amit Sir</h3>
+                            <button className='btn btn-success mt-2' onClick={() => setModal(true)}>Add Todo</button>
+                        </div>
+                        <div className='task-container'>
+                            {
+                                users.map((user) => (
+                                    <Card id={user.id} key={user.id} name={user.name} email={user.email} phone={user.phone} deleteData={deleteData} updatData={updatData} />
+                                ))
+                            }
+
+                        </div>
+                    </>
+
+                    :
+
+                    <div className='centerTxt'>
+                        <h1>If you want to use EMS ? then Please Login or Register your slef. Thank You.</h1>
+                    </div>
+
+            }
+
+
+
             <CreateTask toggle={toggle} modal={modal} addData={addData} />
         </>
     )

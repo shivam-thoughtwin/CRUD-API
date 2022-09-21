@@ -27,7 +27,6 @@ const EditTask = ({ modal, toggle, id, name, email, phone, updatData }) => {
             })
         } else {
             updatData(id,e.target.name.value,e.target.email.value,e.target.phone.value);
-            
         }
     }
     

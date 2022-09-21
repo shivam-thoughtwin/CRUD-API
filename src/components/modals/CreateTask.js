@@ -27,11 +27,6 @@ const CreateTask = ({ modal, toggle, addData }) => {
         },
     });
 
-    const styles = {
-        colorRed:{
-            border:'1px solid red'
-        }
-    }
 
     return (
         <Modal isOpen={modal} toggle={toggle}>
@@ -51,7 +46,7 @@ const CreateTask = ({ modal, toggle, addData }) => {
                         onChange={handleChange}
                         onBlur={handleBlur} 
                         />
-                        {errors.name && touched.name ? <p className='form-error'>{errors.name}</p> : null}
+                        {errors.name && touched.name ? <span className='form-error'>{errors.name}</span> : null}
                     </div>
 
                     <div class="form-group">
@@ -66,7 +61,7 @@ const CreateTask = ({ modal, toggle, addData }) => {
                         onChange={handleChange}
                         onBlur={handleBlur} 
                         />
-                        {errors.email && touched.email ? <p className='form-error'>{errors.email}</p> : null}
+                        {errors.email && touched.email ? <span className='form-error'>{errors.email}</span> : null}
                     </div>
 
                     <div class="form-group">
@@ -81,7 +76,7 @@ const CreateTask = ({ modal, toggle, addData }) => {
                         onChange={handleChange}
                         onBlur={handleBlur} 
                         />
-                        {errors.phone && touched.phone ? <p className='form-error'>{errors.phone}</p> : null}
+                        {errors.phone && touched.phone ? <span className='form-error'>{errors.phone}</span> : null}
                     </div>
 
                 </ModalBody>

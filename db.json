@@ -1,0 +1,56 @@
+{
+  "posts": [
+    {
+      "fname": "shivam",
+      "lname": "pandey",
+      "uemail": "shivam@gmail.com",
+      "password": "12345",
+      "id": 1
+    },
+    {
+      "fname": "test",
+      "lname": "user",
+      "uemail": "test@gmail.com",
+      "password": "123",
+      "id": 2
+    },
+    {
+      "fname": "test",
+      "lname": "user",
+      "uemail": "test1@gmail.com",
+      "password": "123",
+      "id": 3
+    },
+    {
+      "fname": "demo",
+      "lname": "user",
+      "uemail": "demo@gmail.com",
+      "password": "1234",
+      "id": 4
+    },
+    {
+      "fname": "shivam",
+      "lname": "pandey",
+      "uemail": "shivam@gmail.com",
+      "password": "1234",
+      "id": 8
+    },
+    {
+      "fname": "shivam",
+      "lname": "pandey",
+      "uemail": "shivam@gmail.com",
+      "password": "12345",
+      "id": 11
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
