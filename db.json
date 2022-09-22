@@ -8,39 +8,18 @@
       "id": 1
     },
     {
-      "fname": "test",
+      "fname": "tester",
       "lname": "user",
-      "uemail": "test@gmail.com",
-      "password": "123",
-      "id": 2
-    },
-    {
-      "fname": "test",
-      "lname": "user",
-      "uemail": "test1@gmail.com",
-      "password": "123",
-      "id": 3
-    },
-    {
-      "fname": "demo",
-      "lname": "user",
-      "uemail": "demo@gmail.com",
-      "password": "1234",
+      "uemail": "werwerwe@gmail.com",
+      "password": "12345",
       "id": 4
     },
     {
-      "fname": "shivam",
-      "lname": "pandey",
-      "uemail": "shivam@gmail.com",
-      "password": "1234",
-      "id": 8
-    },
-    {
-      "fname": "shivam",
-      "lname": "pandey",
-      "uemail": "shivam@gmail.com",
-      "password": "12345",
-      "id": 11
+      "fname": "new",
+      "lname": "user",
+      "uemail": "nene@gmail.com",
+      "password": "12344",
+      "id": 5
     }
   ],
   "comments": [

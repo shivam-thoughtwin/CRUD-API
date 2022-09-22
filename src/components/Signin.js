@@ -16,9 +16,9 @@ const Signin = () => {
     })
     useEffect(() => {
         fetchData();
-
     }, [])
 
+    console.log(data,"datadatadatadata")
 
     const fetchData = async () => {
         await fetch('http://localhost:4000/posts')
@@ -45,9 +45,12 @@ const Signin = () => {
         }else{
 
         const originalUsers = [...data];
+
         if (originalUsers) {
             const isExits = originalUsers.find(item => item.uemail === formData.uemail);
-            if (isExits) {
+            
+            
+            if (isExits && isExits.password === formData.password) {
                 localStorage.setItem("user", JSON.stringify(formData.uemail));
                 Swal.fire({
                     position: 'center',
@@ -80,6 +83,7 @@ const Signin = () => {
                 <hr />
                     <div class="card-body">
                         <form>
+        
                             <div class="form-group">
                                 <label>Email Address</label>
                                 <input
