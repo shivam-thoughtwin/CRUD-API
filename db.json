@@ -4,7 +4,7 @@
       "fname": "shivam",
       "lname": "pandey",
       "uemail": "shivam@gmail.com",
-      "password": "12345",
+      "password": "9876",
       "id": 1
     },
     {
@@ -15,18 +15,32 @@
       "id": 4
     },
     {
-      "fname": "new",
-      "lname": "user",
-      "uemail": "nene@gmail.com",
-      "password": "12344",
+      "fname": "demo",
+      "lname": "demouser",
+      "uemail": "demo@gmail.com",
+      "password": "123",
       "id": 5
     },
     {
-      "fname": "hello",
-      "lname": "user",
-      "uemail": "hello@user.com",
-      "password": "12345",
+      "fname": "abcd",
+      "lname": "abcd",
+      "uemail": "abcduser@gmail.com",
+      "password": "54321",
       "id": 6
+    },
+    {
+      "fname": "aman",
+      "lname": "pandey",
+      "uemail": "aman@gmail.com",
+      "password": "12345",
+      "id": 7
+    },
+    {
+      "fname": "hello",
+      "lname": "ji",
+      "uemail": "helloiam@gmail.com",
+      "password": "12345",
+      "id": 8
     }
   ],
   "comments": [

@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import ForgotPass from './modals/ForgotPass';
 import { NavLink } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { forgotPass } from './Schema';
 
 const Signin = () => {
     const navigate = useNavigate();
@@ -18,7 +20,7 @@ const Signin = () => {
         fetchData();
     }, [])
 
-    console.log(data,"datadatadatadata")
+    console.log(data, "datadatadatadata")
 
     const fetchData = async () => {
         await fetch('http://localhost:4000/posts')
@@ -32,26 +34,36 @@ const Signin = () => {
         setModal(!modal);
     }
 
-    let handleFormLogin = (e) => {
-        e.preventDefault();
-        console.log(formData.uemail, "formLogin")
+    const initialValues = {
+        fname: '',
+        lname: '',
+        uemail: '',
+        password: '',
+    }
 
-        if(formData.fname === '' || formData.lname === '' || formData.uemail === '' || formData.password === ''){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Plese Fill All Inputs',
-            })
-        }else{
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+        initialValues: initialValues,
+        validationSchema: forgotPass,
+        onSubmit: (values, action) => {
+            console.log(values);
+            setFormData(values);
+            debugger
+            handleFormLogin();
+            action.resetForm();
+        },
+    });
+
+    let handleFormLogin = () => {
+        // e.preventDefault();
 
         const originalUsers = [...data];
 
         if (originalUsers) {
-            const isExits = originalUsers.find(item => item.uemail === formData.uemail);
-            
-            
-            if (isExits && isExits.password === formData.password) {
-                localStorage.setItem("user", JSON.stringify(formData.uemail));
+            const isExits = originalUsers.find(item => item.uemail === values.uemail);
+
+
+            if (isExits && isExits.password === values.password) {
+                localStorage.setItem("user", JSON.stringify(values.uemail));
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -71,7 +83,7 @@ const Signin = () => {
                 })
             }
         }
-        }
+
 
     }
 
@@ -79,38 +91,44 @@ const Signin = () => {
         <>
             <div className='cardCenter'>
                 <div style={{ width: '650px' }} class="card shadowCss">
-                <h2 style={{ display:'flex', justifyContent:'center', color:'#007bff' }}>Login</h2>
-                <hr />
+                    <h2 style={{ display: 'flex', justifyContent: 'center', color: '#007bff' }}>Login</h2>
+                    <hr />
                     <div class="card-body">
-                        <form>
-        
+                        <form onSubmit={handleSubmit}>
+
                             <div class="form-group">
                                 <label>Email Address</label>
                                 <input
+                                    style={{ border: errors.uemail && touched.uemail ? '1px solid red' : '' }}
                                     type="text"
                                     name='uemail'
                                     class="form-control"
                                     placeholder="Email Address"
-                                    value={formData.uemail}
-                                    onChange={(e) => setFormData({ ...formData, uemail: e.target.value })}
+                                    value={values.uemail}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
+                                {errors.uemail && touched.uemail ? <span className='form-error'>{errors.uemail}</span> : null}
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
                                 <input
+                                    style={{ border: errors.password && touched.password ? '1px solid red' : '' }}
                                     name='password'
                                     type="text"
                                     class="form-control"
                                     placeholder="Password"
-                                    value={formData.password}
-                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                    value={values.password}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
+                                {errors.password && touched.password ? <span className='form-error'>{errors.password}</span> : null}
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }} class="form-group">
-                                <button onClick={handleFormLogin} type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary">Login</button>
                                 <span onClick={() => setModal(true)} style={{ color: 'blue', cursor: 'pointer' }}>Forgot Password</span>
                             </div>
-                            
+
                             <p>Don't hane an account <NavLink to="/signup">Click</NavLink> </p>
 
                         </form>

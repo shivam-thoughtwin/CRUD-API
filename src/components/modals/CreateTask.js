@@ -1,8 +1,9 @@
 import React from 'react';
+import '../../App.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useFormik } from 'formik';
 import { validation } from '../Schema';
-import '../../App.css';
+
 
 const CreateTask = ({ modal, toggle, addData }) => {
 

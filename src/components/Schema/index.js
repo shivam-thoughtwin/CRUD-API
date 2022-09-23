@@ -10,10 +10,10 @@ export const registration = Yup.object({
     fname: Yup.string().min(2).max(30).required("Please Enter Your First Name"),
     lname: Yup.string().min(2).max(25).required("Please Enter Your Last Name"),
     uemail: Yup.string().email().required("Please Enter Your Email"),
-    password: Yup.string().min(2).max(25).required("Please Enter Your Phone"),
+    password: Yup.string().min(2).max(25).required("Please Enter Your Password"),
 })
 
 export const forgotPass = Yup.object({
     uemail: Yup.string().email().required("Please Enter Your Email"),
-    password: Yup.string().min(2).max(25).required("Please Enter Your Phone"),
+    password: Yup.string().min(2).max(25).required("Please Enter Your New Password"),
 })

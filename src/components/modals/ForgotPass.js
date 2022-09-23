@@ -3,67 +3,83 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import '../../App.css';
 import Swal from "sweetalert2";
 import axios from 'axios';
-
+import { useFormik } from 'formik';
+import { forgotPass } from '../Schema';
 
 const ForgotPass = ({ modal, toggle, data }) => {
+
     const [formData, setFormData] = useState({
-        fname: data.fname,
-        lname: data.lname,
+        fname: '',
+        lname:'',
         uemail: '',
         password: '',
     })
 
-    console.log(formData, "formData")
-    debugger
-    const forGotPass = async (e) => {
-        e.preventDefault();
+    
+
+    // console.log(formData, "formDatashivam")
+    console.log(data,"ArrayData");
+
+    const initialValues = {
+        uemail: '',
+        password: '',
+    }
+
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+        initialValues: initialValues,
+        validationSchema: forgotPass,
+        onSubmit: (values, action) => {
+            console.log(values);
+            setFormData(values);
+            debugger
+            forGotPass();
+            action.resetForm();
+        },
+    });
+
+    const forGotPass = async () => {
         // console.log(formData.uemail,"==>forgotEmail")
 
         if (data) {
+            const isExits = data.findIndex(item => item.uemail === values.uemail)
+            console.log(isExits, "checkdata")
+            debugger
+            if (isExits !== -1) {
+                data[isExits].password = values.password
+                let uid = data[isExits].id
 
-            if (formData.uemail === '' || formData.password === '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please Fill All Inputs !!',
-                })
-            } else {
-                const isExits = data.findIndex(item => item.uemail === formData.uemail)
-                
+                let newObj = {}
+                newObj.fname = data[isExits].fname
+                newObj.lname = data[isExits].lname
+                newObj.uemail = values.uemail
+                newObj.password = values.password
+
+
+                let response = await axios.put(`http://localhost:4000/posts/${uid}`, newObj)
                 debugger
-                if (isExits !== -1) {
-                    data[isExits].password = formData.password
-                    let uid = data[isExits].id
-                    let response = await axios.put(`http://localhost:4000/posts/${uid}`, formData)
-
-                    if (response) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Your New Password has been Updated !!',
-                            showConfirmButton: false,
-                            timer: 2500
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Somthing went wrong',
-                        })
-                    }
-
-
+                if (response) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your New Password has been Updated !!',
+                        showConfirmButton: false,
+                        timer: 2500
+                    })
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Please Enter Correct Email!',
+                        text: 'Somthing went wrong',
                     })
                 }
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please Enter Correct Email!',
+                })
             }
-
-
-
 
         }
 
@@ -72,7 +88,7 @@ const ForgotPass = ({ modal, toggle, data }) => {
     return (
         <Modal isOpen={modal} toggle={toggle}>
             <ModalHeader toggle={toggle}>Forgot Password</ModalHeader>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <ModalBody>
                     <form>
                         <input type="hidden" name='fname' value={formData.fname} />
@@ -81,30 +97,37 @@ const ForgotPass = ({ modal, toggle, data }) => {
                         <div class="form-group">
                             <label>Email Address</label>
                             <input
+                                style={{ border: errors.uemail && touched.uemail ? '1px solid red' : '' }}
                                 type="text"
                                 name='uemail'
                                 class="form-control"
                                 placeholder="Email Address"
-                                value={formData.uemail}
-                                onChange={(e) => setFormData({ ...formData, uemail: e.target.value })}
+                                value={values.uemail}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                             />
+                            {errors.uemail && touched.uemail ? <span className='form-error'>{errors.uemail}</span> : null}
                         </div>
                         <div class="form-group">
                             <label>New Password</label>
                             <input
+                                style={{ border: errors.password && touched.password ? '1px solid red' : '' }}
                                 name='password'
                                 type="text"
                                 class="form-control"
-                                placeholder="Password" value={formData.password}
-                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                placeholder="Enter Password"
+                                value={values.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                             />
+                            {errors.password && touched.password ? <span className='form-error'>{errors.password}</span> : null}
                         </div>
                     </form>
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button onClick={forGotPass} type='submit' color="primary">
-                        Add
+                    <Button type='submit' color="primary">
+                        Submit
                     </Button>{' '}
                     <Button color="secondary" onClick={toggle}>
                         Cancel
