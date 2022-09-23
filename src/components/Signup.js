@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 
 
+
 const Signup = () => {
     const navigate = useNavigate();
     const [data, setData] = useState([{}]);
@@ -25,7 +26,6 @@ const Signup = () => {
             .then((res) => res.json())
             .then((data) => setData(data))
             .catch((err) => console.log(err))
-
     }
 
 
@@ -40,9 +40,7 @@ const Signup = () => {
                 text: 'Please Fill All Inputs',
             })
         } else {
-
             const originalUsers = [...data];
-
             const isEmailExits = originalUsers.find(item => item.uemail === formData.uemail);
             debugger
             if (isEmailExits !== undefined) {
@@ -52,9 +50,7 @@ const Signup = () => {
                     text: 'Email Already Exits!!',
                 })
             } else {
-
                 let response = await axios.post('http://localhost:4000/posts', formData)
-
                 if (response) {
                     Swal.fire({
                         position: 'center',
@@ -80,12 +76,8 @@ const Signup = () => {
                         text: 'Somthing went wrong',
                     })
                 }
-
             }
-
-
         }
-
     }
 
     return (

@@ -12,3 +12,8 @@ export const registration = Yup.object({
     uemail: Yup.string().email().required("Please Enter Your Email"),
     password: Yup.string().min(2).max(25).required("Please Enter Your Phone"),
 })
+
+export const forgotPass = Yup.object({
+    uemail: Yup.string().email().required("Please Enter Your Email"),
+    password: Yup.string().min(2).max(25).required("Please Enter Your Phone"),
+})

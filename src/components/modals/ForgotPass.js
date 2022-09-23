@@ -4,6 +4,7 @@ import '../../App.css';
 import Swal from "sweetalert2";
 import axios from 'axios';
 
+
 const ForgotPass = ({ modal, toggle, data }) => {
     const [formData, setFormData] = useState({
         fname: data.fname,

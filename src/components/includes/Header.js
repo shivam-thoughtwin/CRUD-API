@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 
 const Header = () => {
   const navigate = useNavigate();
   const [getUser, setGetUser] = useState([]);
   const [isLoggedin, setIsLoggedin] = useState(false);
+  const location = useLocation();
 
 
   useEffect(() => {
@@ -51,8 +53,8 @@ const Header = () => {
           </>
           :
           <>
-            <NavLink to="/signin"> <button className='btn btn-warning mr-3'>Login</button></NavLink>
-            <NavLink to="/signup"> <button className='btn btn-info'>Signup</button> </NavLink>
+            <NavLink to={(location.pathname === '/signin') ? '/signup' : '/signin'}> <button className='btn btn-warning mr-3'>{ (location.pathname === '/signin') ? 'Register' : 'Login' }</button></NavLink>
+            {/* <NavLink to="/signup"> <button className='btn btn-info'>Signup</button> </NavLink> */}
           </>
         }
 
