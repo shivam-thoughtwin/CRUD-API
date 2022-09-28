@@ -35,6 +35,10 @@ const Card = ({ id, name, email, phone, deleteData, updatData }) => {
     setModal(!modal);
   }
 
+  const closeModal = () =>{
+    setModal(false);
+}
+
 
   return (
 
@@ -50,7 +54,7 @@ const Card = ({ id, name, email, phone, deleteData, updatData }) => {
           </div>
         </div>
       </div>
-      <EditTask modal={modal} toggle={toggle} id={id} name={name} email={email} phone={phone} updatData={updatData} />
+      <EditTask modal={modal} toggle={toggle} id={id} name={name} email={email} phone={phone} updatData={updatData} closeModal={closeModal} />
     </div>
 
   )

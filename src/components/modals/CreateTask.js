@@ -18,10 +18,10 @@ const CreateTask = ({ modal, toggle, addData }) => {
         phone: ""
     }
 
-    const {values, errors, touched , handleBlur, handleChange, handleSubmit}  = useFormik({
-        initialValues : initialValues,
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+        initialValues: initialValues,
         validationSchema: validation,
-        onSubmit : (values, action) =>{
+        onSubmit: (values, action) => {
             console.log(values)
             addData(values.name, values.email, values.phone)
             action.resetForm();
@@ -37,45 +37,45 @@ const CreateTask = ({ modal, toggle, addData }) => {
 
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input 
-                        style={{ border: errors.name && touched.name ? '1px solid red' : '' }}
-                        type="text" 
-                        class="form-control" 
-                        name='name' 
-                        placeholder="Enter Full Name" 
-                        value={values.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur} 
+                        <input
+                            style={{ border: errors.name && touched.name ? '1px solid red' : '' }}
+                            type="text"
+                            class="form-control"
+                            name='name'
+                            placeholder="Enter Full Name"
+                            value={values.name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                         {errors.name && touched.name ? <span className='form-error'>{errors.name}</span> : null}
                     </div>
 
                     <div class="form-group">
                         <label>Email</label>
-                        <input 
-                        style={{ border: errors.email && touched.email ? '1px solid red' : '' }}
-                        type="text" 
-                        class="form-control" 
-                        name='email' 
-                        placeholder="Enter Email" 
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur} 
+                        <input
+                            style={{ border: errors.email && touched.email ? '1px solid red' : '' }}
+                            type="text"
+                            class="form-control"
+                            name='email'
+                            placeholder="Enter Email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                         {errors.email && touched.email ? <span className='form-error'>{errors.email}</span> : null}
                     </div>
 
                     <div class="form-group">
                         <label>Phone</label>
-                        <input 
-                        style={{ border: errors.phone && touched.phone ? '1px solid red' : '' }}
-                        type="text" 
-                        class="form-control" 
-                        name='phone' 
-                        placeholder="Enter Phone Number" 
-                        value={values.phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur} 
+                        <input
+                            style={{ border: errors.phone && touched.phone ? '1px solid red' : '' }}
+                            type="text"
+                            class="form-control"
+                            name='phone'
+                            placeholder="Enter Phone Number"
+                            value={values.phone}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                         {errors.phone && touched.phone ? <span className='form-error'>{errors.phone}</span> : null}
                     </div>

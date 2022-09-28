@@ -6,19 +6,14 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { forgotPass } from '../Schema';
 
-const ForgotPass = ({ modal, toggle, data }) => {
+const ForgotPass = ({ modal, toggle, data, closeModal }) => {
 
     const [formData, setFormData] = useState({
         fname: '',
         lname:'',
         uemail: '',
         password: '',
-    })
-
-    
-
-    // console.log(formData, "formDatashivam")
-    console.log(data,"ArrayData");
+    });
 
     const initialValues = {
         uemail: '',
@@ -38,7 +33,6 @@ const ForgotPass = ({ modal, toggle, data }) => {
     });
 
     const forGotPass = async () => {
-        // console.log(formData.uemail,"==>forgotEmail")
 
         if (data) {
             const isExits = data.findIndex(item => item.uemail === values.uemail)
@@ -54,10 +48,11 @@ const ForgotPass = ({ modal, toggle, data }) => {
                 newObj.uemail = values.uemail
                 newObj.password = values.password
 
-
+                closeModal();
                 let response = await axios.put(`http://localhost:4000/posts/${uid}`, newObj)
                 debugger
                 if (response) {
+                    
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -72,7 +67,7 @@ const ForgotPass = ({ modal, toggle, data }) => {
                         text: 'Somthing went wrong',
                     })
                 }
-
+                
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -80,9 +75,7 @@ const ForgotPass = ({ modal, toggle, data }) => {
                     text: 'Please Enter Correct Email!',
                 })
             }
-
         }
-
     }
 
     return (
@@ -113,7 +106,7 @@ const ForgotPass = ({ modal, toggle, data }) => {
                             <input
                                 style={{ border: errors.password && touched.password ? '1px solid red' : '' }}
                                 name='password'
-                                type="text"
+                                type="password"
                                 class="form-control"
                                 placeholder="Enter Password"
                                 value={values.password}

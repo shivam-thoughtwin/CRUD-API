@@ -11,9 +11,7 @@ import { registration } from './Schema';
 const Signup = () => {
     const navigate = useNavigate();
     const [data, setData] = useState([{}]);
-    const [formData, setFormData] = useState({
-
-    });
+    const [formData, setFormData] = useState({});
 
     useEffect(() => {
         fetchData();
@@ -66,6 +64,7 @@ const Signup = () => {
                 newObj.password = values.password
 
                 let response = await axios.post('http://localhost:4000/posts', newObj)
+
                 if (response) {
                     Swal.fire({
                         position: 'center',
@@ -92,7 +91,6 @@ const Signup = () => {
                     })
                 }
             }
-        
     }
 
     return (

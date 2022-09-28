@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import CreateTask from './modals/CreateTask';
-import Card from './Card';
+// import Card from './Card';
 import Swal from "sweetalert2";
+const Card = lazy(() => import('./Card'));
 
 
 
 const TodoList = () => {
 
     const [modal, setModal] = useState(false);
-
     const [users, setUsers] = useState([]);
-
     const [getUser, setGetUser] = useState([]);
     const [isLoggedin, setIsLoggedin] = useState(false);
 
@@ -93,11 +92,9 @@ const TodoList = () => {
                         })
 
                         setUsers((users) => [...users, data]);
-
                     })
                     .catch((err) => console.log(err));
             }
-
         }
     }
 
@@ -171,12 +168,10 @@ const TodoList = () => {
                         .catch((err) => console.log(err));
 
                 } else {
-
                     const originalUsers = [...users];
                     const isExits = originalUsers.findIndex(item => item.id === id)
 
                     if (isExits) {
-
                         let tempObj = {}
                         tempObj['name'] = name;
                         tempObj['email'] = email;
@@ -231,17 +226,21 @@ const TodoList = () => {
                 (isLoggedin) ?
                     <>
                         <div className='header text-center'>
-                            <h3>Todo List using API || Assigned by Amit Sir</h3>
                             <button className='btn btn-success mt-2' onClick={() => setModal(true)}>Add Todo</button>
                         </div>
+
+                        <Suspense fallback={<div className='loder'>Please Wait......</div>}>
                         <div className='task-container'>
                             {
                                 users.map((user) => (
-                                    <Card id={user.id} key={user.id} name={user.name} email={user.email} phone={user.phone} deleteData={deleteData} updatData={updatData} />
+                                    
+                                        <Card id={user.id} key={user.id} name={user.name} email={user.email} phone={user.phone} deleteData={deleteData} updatData={updatData} />
+                                   
                                 ))
                             }
 
                         </div>
+                        </Suspense>
                     </>
 
                     :
@@ -249,7 +248,6 @@ const TodoList = () => {
                     <div className='centerTxt'>
                         <h1>If you want to use EMS ? then Please Login or Register your slef. Thank You.</h1>
                     </div>
-
             }
 
 

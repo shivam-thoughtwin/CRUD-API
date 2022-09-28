@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Swal from "sweetalert2";
 
-const EditTask = ({ modal, toggle, id, name, email, phone, updatData }) => {
+const EditTask = ({ modal, toggle, id, name, email, phone, updatData, closeModal }) => {
 
     const [users, setUsers] = useState([]);
     useEffect(() => {
@@ -27,6 +27,7 @@ const EditTask = ({ modal, toggle, id, name, email, phone, updatData }) => {
             })
         } else {
             updatData(id,e.target.name.value,e.target.email.value,e.target.phone.value);
+            closeModal()
         }
     }
     

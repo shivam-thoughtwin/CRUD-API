@@ -4,7 +4,7 @@
       "fname": "shivam",
       "lname": "pandey",
       "uemail": "shivam@gmail.com",
-      "password": "9876",
+      "password": "123",
       "id": 1
     },
     {
@@ -41,6 +41,27 @@
       "uemail": "helloiam@gmail.com",
       "password": "12345",
       "id": 8
+    },
+    {
+      "fname": "newUser",
+      "lname": "test",
+      "uemail": "newUser@test.com",
+      "password": "12345",
+      "id": 9
+    },
+    {
+      "fname": "new",
+      "lname": "entry",
+      "uemail": "newEntry@gmail.com",
+      "password": "12345",
+      "id": 10
+    },
+    {
+      "fname": "shivam",
+      "lname": "pandey",
+      "uemail": "shivam123@gmail.com",
+      "password": "123",
+      "id": 11
     }
   ],
   "comments": [

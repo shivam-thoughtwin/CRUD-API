@@ -12,23 +12,24 @@ const Signin = () => {
     const navigate = useNavigate();
     const [modal, setModal] = useState(false);
     const [data, setData] = useState([{}]);
-    const [formData, setFormData] = useState({
-        uemail: '',
-        password: '',
-    })
+    const [formData, setFormData] = useState({})
     useEffect(() => {
         fetchData();
     }, [])
 
     console.log(data, "datadatadatadata")
+    
+    const closeModal = () =>{
+        setModal(false);
+    }
 
     const fetchData = async () => {
         await fetch('http://localhost:4000/posts')
             .then((res) => res.json())
             .then((data) => setData(data))
             .catch((err) => console.log(err))
-
     }
+    
 
     const toggle = () => {
         setModal(!modal);
@@ -47,7 +48,6 @@ const Signin = () => {
         onSubmit: (values, action) => {
             console.log(values);
             setFormData(values);
-            debugger
             handleFormLogin();
             action.resetForm();
         },
@@ -83,10 +83,9 @@ const Signin = () => {
                 })
             }
         }
-
-
     }
 
+    
     return (
         <>
             <div className='cardCenter'>
@@ -115,7 +114,7 @@ const Signin = () => {
                                 <input
                                     style={{ border: errors.password && touched.password ? '1px solid red' : '' }}
                                     name='password'
-                                    type="text"
+                                    type="password"
                                     class="form-control"
                                     placeholder="Password"
                                     value={values.password}
@@ -136,7 +135,7 @@ const Signin = () => {
                 </div>
             </div>
 
-            <ForgotPass toggle={toggle} modal={modal} data={data} />
+            <ForgotPass toggle={toggle} modal={modal} data={data} closeModal={closeModal} />
         </>
     )
 }
